@@ -4,7 +4,7 @@
 #include "stdbool.h"
 
 
-// Per definire quanto tempo aspettare da quando un pulsante è stato premuto
+// Per definire quanto tempo aspettare da quando un pulsante ï¿½ stato premuto
 uint32_t MAX_DELAY = 0x2710; // 10000 in decimale =	10 secondi
 
 // define per i comandi
@@ -47,7 +47,7 @@ extern UART_HandleTypeDef huart2;
 
 // Variabili per mandare il comando al display
 extern uint8_t length;
-extern uint8_t index;
+extern uint8_t index_d;
 extern uint8_t cmd;
 extern uint8_t id;
 extern uint8_t msb;

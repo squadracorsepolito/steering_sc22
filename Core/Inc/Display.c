@@ -3,7 +3,7 @@
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
 uint8_t length;
-uint8_t index;
+uint8_t index_d;
 uint8_t HV;
 uint8_t temp_HV;
 uint8_t soc;
@@ -60,7 +60,7 @@ int return_len_string(uint8_t message[]){
 
 
 /*
-Per calcolare il checksum, devo effettuare lo xor di coppie di bytes, per cui, se ad esempio ho "0a24", dovrò fare lo xor tra 0a e 24
+Per calcolare il checksum, devo effettuare lo xor di coppie di bytes, per cui, se ad esempio ho "0a24", dovrï¿½ fare lo xor tra 0a e 24
 per cui 00001010 xor 00100100 = 00101110 = 2e
 */
 uint8_t checksum_objects(uint8_t cmd, uint8_t id, uint8_t index, uint8_t msb, uint8_t lsb){
@@ -143,7 +143,7 @@ bool WriteStr (uint8_t cmd, uint8_t index, uint8_t length, uint8_t message[], ui
 	cmd = WRITESTR;
 	uint8_t ACK[1];
 	
-	// Con le stringhe, trasmetto una variabile alla volta, perchè altrimenti non funziona con la trasmissione del messaggio di tipo stringa
+	// Con le stringhe, trasmetto una variabile alla volta, perchï¿½ altrimenti non funziona con la trasmissione del messaggio di tipo stringa
 	
 	//HAL_UART_Transmit(&huart1, (uint8_t*)com, length+4, 100);
 	HAL_UART_Transmit(&huart1, (uint8_t*)&cmd, 1, 100);
@@ -153,7 +153,7 @@ bool WriteStr (uint8_t cmd, uint8_t index, uint8_t length, uint8_t message[], ui
 	HAL_UART_Transmit(&huart1, (uint8_t*)&length, 1, 100);
 	HAL_Delay(1);
 	for (int i=0; i<length; i++){
-	HAL_UART_Transmit(&huart1, &message[i], 1, 100);	// ciclo su tutta la lunghezza della stringa, così da inviare un valore per volta
+	HAL_UART_Transmit(&huart1, &message[i], 1, 100);	// ciclo su tutta la lunghezza della stringa, cosï¿½ da inviare un valore per volta
 	HAL_Delay(1);
 	}
 	
@@ -191,7 +191,7 @@ void screen(uint8_t RTD, uint8_t message[], size_t len, uint32_t delay_100us) {
 			// GUARDARE MAIN CODICE STRINGFUNCTIONS PER AVER PRESENTE COME FARE !!! 
 			len = return_len_string(message);
 			checksum = checksum_objects(WRITEOBJ, FORM, SCREEN0, MSB_FORM0, LSB_FORM0);
-			WriteObject(WRITEOBJ, FORM, SCREEN0, MSB_FORM0, LSB_FORM0, checksum);	// 0x0B è il checksum per la schermata main
+			WriteObject(WRITEOBJ, FORM, SCREEN0, MSB_FORM0, LSB_FORM0, checksum);	// 0x0B ï¿½ il checksum per la schermata main
 			delay_fun(&delay_100us_last, delay_100us);	// piccolissimo ritardo per iniziare a cambiare i valori sul display
 		
 			//SD = FUNZIONE CHE RESTITUISCE IN CAN IL VALORE DI SD
@@ -225,7 +225,7 @@ void screen(uint8_t RTD, uint8_t message[], size_t len, uint32_t delay_100us) {
 			
 		len = return_len_string(message);
 		checksum = checksum_objects(WRITEOBJ, FORM, SCREEN1, MSB_FORM0, LSB_FORM0);
-		WriteObject(WRITEOBJ, FORM, SCREEN1, MSB_FORM0, LSB_FORM0, checksum);	// 0x0A è il checksum per la schermata RTD
+		WriteObject(WRITEOBJ, FORM, SCREEN1, MSB_FORM0, LSB_FORM0, checksum);	// 0x0A ï¿½ il checksum per la schermata RTD
 		delay_fun(&delay_100us_last, delay_100us);	// piccolissimo ritardo per iniziare a cambiare i valori sul display
 		
 			// HV = FUNZIONE CHE RESTITUISCE IN CAN IL VALORE DI SD
@@ -260,7 +260,7 @@ void check_push_dx(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, uint32_t delay_100us,
 			}
 		}
 		if (waiting){
-			if (delay_fun(&time, delay_100us))	// se è passato un tempo maggiore di time	
+			if (delay_fun(&time, delay_100us))	// se ï¿½ passato un tempo maggiore di time	
 					{
 						if (HAL_GPIO_ReadPin(GPIOx, GPIO_Pin) == 1){		// ri-checko che il pulsante sia ancora pushato
 							
@@ -269,14 +269,14 @@ void check_push_dx(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, uint32_t delay_100us,
 							WriteObject(WRITEOBJ, FORM, screen, MSB_FORM0, LSB_FORM0, checksum);	// qui passo alla schermata successiva
 						}			
 						
-							if (delay_fun(&MAX_DELAY, delay_100us) && HAL_GPIO_ReadPin(GPIOx, GPIO_Pin)==0){	// se passano 10 secondi e non sto più premendo il pulsante, torno alla schermata RTD
+							if (delay_fun(&MAX_DELAY, delay_100us) && HAL_GPIO_ReadPin(GPIOx, GPIO_Pin)==0){	// se passano 10 secondi e non sto piï¿½ premendo il pulsante, torno alla schermata RTD
 							checksum = checksum_objects(WRITEOBJ, FORM, SCREEN1, MSB_FORM0, LSB_FORM0);	
-							WriteObject(WRITEOBJ, FORM, SCREEN1, MSB_FORM0, LSB_FORM0, checksum);	// se dopo 10 secondi non premo più nulla, torno al form1 RTD
+							WriteObject(WRITEOBJ, FORM, SCREEN1, MSB_FORM0, LSB_FORM0, checksum);	// se dopo 10 secondi non premo piï¿½ nulla, torno al form1 RTD
 							page = 0;
 							}
 						
-						waiting = 0;	// non sono più in attesa, quindi lo metto a zero
-						first_push = 1;	// rimetto il push a 1, pronto per la prossima azione, quando ci sarà un altro pulsante da premere
+						waiting = 0;	// non sono piï¿½ in attesa, quindi lo metto a zero
+						first_push = 1;	// rimetto il push a 1, pronto per la prossima azione, quando ci sarï¿½ un altro pulsante da premere
 					}
 		}
 		
@@ -301,7 +301,7 @@ void check_push_sx(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, uint32_t delay_100us,
 			}
 		}
 		if (waiting){
-			if (delay_fun(&time, delay_100us))	// se è passato un tempo maggiore di time	
+			if (delay_fun(&time, delay_100us))	// se ï¿½ passato un tempo maggiore di time	
 					{
 						if (HAL_GPIO_ReadPin(GPIOx, GPIO_Pin) == 1){		// ri-checko che il pulsante sia ancora pushato
 							
@@ -309,14 +309,14 @@ void check_push_sx(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, uint32_t delay_100us,
 							checksum = checksum_objects(WRITEOBJ, FORM, screen, MSB_FORM0, LSB_FORM0);;	
 							WriteObject(WRITEOBJ, FORM, screen, MSB_FORM0, LSB_FORM0, checksum);	// qui passo alla schermata precedente
 						}
-							if (delay_fun(&MAX_DELAY, delay_100us) && HAL_GPIO_ReadPin(GPIOx, GPIO_Pin)==0){	// se passano 10 secondi e non sto premendo più il pulsante, torno alla schermata RTD
+							if (delay_fun(&MAX_DELAY, delay_100us) && HAL_GPIO_ReadPin(GPIOx, GPIO_Pin)==0){	// se passano 10 secondi e non sto premendo piï¿½ il pulsante, torno alla schermata RTD
 							checksum = checksum_objects(WRITEOBJ, FORM, SCREEN1, MSB_FORM0, LSB_FORM0);	
-							WriteObject(WRITEOBJ, FORM, SCREEN1, MSB_FORM0, LSB_FORM0, checksum);	// se dopo 10 secondi non premo più nulla, torno al form1 RTD
+							WriteObject(WRITEOBJ, FORM, SCREEN1, MSB_FORM0, LSB_FORM0, checksum);	// se dopo 10 secondi non premo piï¿½ nulla, torno al form1 RTD
 							page = 0;
 							}
 						
-						waiting = 0;	// non sono più in attesa, quindi lo metto a zero
-						first_push = 1;	// rimetto il push a 1, pronto per la prossima azione, quando ci sarà un altro pulsante da premere
+						waiting = 0;	// non sono piï¿½ in attesa, quindi lo metto a zero
+						first_push = 1;	// rimetto il push a 1, pronto per la prossima azione, quando ci sarï¿½ un altro pulsante da premere
 					}
 		}
 		
@@ -352,7 +352,7 @@ void switch_screen(uint32_t delay_100us, uint8_t message[], size_t len){
 	}
 }
 
-// Funzione per capire dopo quanto tempo si va in overflow e quindi si scatena un interrupt. Questa funzione è utilizzata per la delay_fun
+// Funzione per capire dopo quanto tempo si va in overflow e quindi si scatena un interrupt. Questa funzione ï¿½ utilizzata per la delay_fun
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	
 	if ((*htim).Instance == TIM3 ) {
@@ -363,8 +363,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
 uint32_t ReturnTime_100us(void) {
 
-	uint32_t time = counter;	// counter è inizializzate a 0. Ad ogni interrupt che si verifica, poi, si incrementa perchè l'ARR è andato in overflow. 
-						// Il contatore, infatti, è incrementato ogni 100 us
+	uint32_t time = counter;	// counter ï¿½ inizializzate a 0. Ad ogni interrupt che si verifica, poi, si incrementa perchï¿½ l'ARR ï¿½ andato in overflow. 
+						// Il contatore, infatti, ï¿½ incrementato ogni 100 us
 	return time;
 
 		// return the value of the counter incremented every 100 us --> Lavora con counter che viene incrementato ad ogni overflow dell'ARR
@@ -398,7 +398,7 @@ void Core_SteeringWheel(){
 	
 	initialization();
 	// checksum = funzione per il calcolo del checksum
-	WriteObject(cmd, FORM, index, MSB_FORM0, LSB_FORM0, checksum);
+	WriteObject(cmd, FORM, index_d, MSB_FORM0, LSB_FORM0, checksum);
 	delay_fun(&delay_100_last, delay_100);
 	
 	
