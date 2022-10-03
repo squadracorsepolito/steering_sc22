@@ -1,0 +1,86 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.36.0.0
+Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Andrea Viola, PoliTO, LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.36.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.16
+Assembler:       Armasm.exe V6.16
+Linker/Locator:  ArmLink.exe V6.16
+Library Manager: ArmAr.exe V6.16
+Hex Converter:   FromElf.exe V6.16
+CPU DLL:         SARMCM3.DLL V5.36.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
+Dialog DLL:      TCM.DLL V1.53.0.0
+ 
+<h2>Project:</h2>
+C:\Users\user\Desktop\Scuola\Squadra Corse\SC22\STM32\SC22_SteeringMaster\MDK-ARM\SteeringWheel.uvprojx
+Project File Date:  07/06/2022
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.16', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Build target 'SteeringWheel'
+../Core/Inc/Display.c(57): warning: sizeof on array function parameter will return size of 'uint8_t *' (aka 'unsigned char *') instead of 'uint8_t []' [-Wsizeof-array-argument]
+        len = sizeof(message)/sizeof(message[0]);
+                    ^
+../Core/Inc/Display.c(54): note: declared here
+int return_len_string(uint8_t message[]){
+                              ^
+../Core/Inc/Display.c(57): warning: 'sizeof (message)' will return the size of the pointer, not the array itself [-Wsizeof-pointer-div]
+        len = sizeof(message)/sizeof(message[0]);
+              ~~~~~~~~~~~~~~~^
+../Core/Inc/Display.c(54): note: pointer 'message' declared here
+int return_len_string(uint8_t message[]){
+                              ^
+../Core/Inc/Display.c(135): warning: non-void function does not return a value in all control paths [-Wreturn-type]
+}
+^
+../Core/Inc/Display.c(174): warning: non-void function does not return a value in all control paths [-Wreturn-type]
+}
+^
+../Core/Inc/Display.c(392): warning: non-void function does not return a value in all control paths [-Wreturn-type]
+        }
+        ^
+5 warnings generated.
+compiling Display.c...
+linking...
+SteeringWheel\SteeringWheel.axf: Error: L6200E: Symbol MAX_DELAY multiply defined (by display.o and main.o).
+Not enough information to list image symbols.
+Not enough information to list load addresses in the image map.
+Finished: 2 information, 0 warning and 1 error messages.
+"SteeringWheel\SteeringWheel.axf" - 1 Error(s), 5 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.8.0.pack
+                ARM.CMSIS.5.8.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.5.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F3xx_DFP.2.2.0.pack
+                Keil.STM32F3xx_DFP.2.2.0
+                STMicroelectronics STM32F3 Series Device Support and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_SteeringWheel
+  C:\Users\user\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
+  C:\Users\user\AppData\Local\Arm\Packs\Keil\STM32F3xx_DFP\2.2.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.5.0
+      Include file:  CMSIS\Core\Include\tz_context.h
+Target not created.
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>
